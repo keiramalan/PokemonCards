@@ -14,7 +14,7 @@ public class Card
     private String image;
     
     // backup image
-    static final String DEFAULT_IMAGE = "DefaultProfilePic.jpg";
+    static final String DEFAULT_IMAGE = "DefaultImage.png";
     
     // co-ordinates to draw pokemon image
     private final double locX = 100;
@@ -65,34 +65,9 @@ public class Card
     }
     
     /**
-     * Getter method for image height
-     * @return height the image's height
+     * Return image
      */
-    public double imgHeight() {
-        return height;
-    }
-    
-    /**
-     * Getter method for image width
-     * @return width the image's width
-     */
-    public double imgWidth() {
-        return width;
-    }
-    
-    /**
-     * Getter method for image's x co-ordinate
-     * @return locX the x co-ordinate
-     */
-    public double imgX() {
-        return locX;
-    }
-    
-    /**
-     * Return Y co-ordinate
-     * @return locY the y co-ordinate
-     */
-    public double imgY() {
-        return locY;
+    public String getImage() {
+        return image;
     }
 }

@@ -20,6 +20,10 @@ public class Cards
     // card ID used to place new contacts into the correct part
     // of the hashmap
     private int currCardId;
+    // y position of text
+    private int yPos;
+    // current card
+    private Card currCard;
 
     /**
      * Constructor for objects of class Cards
@@ -41,9 +45,46 @@ public class Cards
         cardsMap.put(currCardId, new Card(name, cardValue, imgFileName));
     }
     
+    /**
+     * Set Card Id
+     * @param incrementor Amount to increase card ID by
+     */
+    public void setCardId(int incrementor) {
+        currCardId = currCardId + incrementor;
+    }
     
+    /**
+     * Finds a card based on name
+     * sets the current card instance if found and returns true
+     * @return boolean false if not found
+     */
+    public boolean findCard(String name) {
+       // Search hashmap for card
+       
+       for (int cardId : cardsMap.keySet()) {
+           if (cardsMap.get(cardId).getName().equalsIgnoreCase(name)) {
+               currCard = cardsMap.get(cardId);
+               return true;
+           }
+        }
+        return false;
+    }
     
-    // mouse listener
-    // return true if user has clicked
-    // allow GUI to wipe image
+    /**
+     * Getter method for the current card
+     * @return Card current card
+     */
+    public Card getCard(){
+        return currCard;
+    }
+    
+    // Display All
+    // Return hashmap
+    // https://stackoverflow.com/questions/37971533/
+    //is-it-possible-to-return-a-hashmap-object-in-java/37971561
+    public Map<Integer, Card> returnMap() {
+        
+        return cardsMap;
+    }
+    // How tf?
 }
