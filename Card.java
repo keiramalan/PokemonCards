@@ -66,6 +66,7 @@ public class Card
     
     /**
      * Return image
+     * @return String the card's image
      */
     public String getImage() {
         return image;

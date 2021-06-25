@@ -14,7 +14,9 @@ public class GUI
     // declare Cards instance
     Cards crds = new Cards();
     
-    // fields
+    /* fields */
+    
+    // image dimensions
     int locX = 100;
     int locY = 100;
     final double WIDTH = 200;
@@ -27,7 +29,8 @@ public class GUI
     // name length limits
     final int MAXNAME = 20;
     final int MINNAME = 1;
-        
+    
+    Card currCard;
 
     /**
      * Constructor for objects of class GUI
@@ -36,14 +39,20 @@ public class GUI
     {
         // initialise instance variables
         UI.initialise();
+        
+        // buttons
         UI.addButton("Add Card", this::addCard);
         UI.addButton("Find Card", this::findCard);
+        UI.addButton("Hide", UI::clearGraphics);
+        UI.addButton("Display All", this::displayAll);
+        UI.addButton("Quit", UI::quit);
+        
+        // mouse listener checks if user has clicked on image
         UI.setMouseListener(this::mouseListener);
-        UI.addButton("Clear", UI::clearGraphics);
     }
 
     public void addCard() {
-        // number to increment the current card ID for hashmap placement
+        // amount to increment card ID for hashmap placement
         final int INCREMENT = 1;
         
         // Get card's name and number from user
@@ -63,19 +72,23 @@ public class GUI
         // add an image of the card
         String imgFileName = UIFileChooser.open("Choose Image File: ");
         
-        // increment
+        // increment card ID
         crds.setCardId(INCREMENT);
+        
+        // place new contact in hashmap
         crds.addCard(name, cardPrice, imgFileName);
     }
     
     /**
-     * Display pokemon card
+     * Display a pokemon card
      * @param Card selected card to display
      */
     public void displayCard(Card selectedCard) {
         // co-ordinates of text
         final int XPOS = 100;
         int yPos = 400;
+        
+        // allows text blocks to not stack on top of each other
         int ySpacer = 30;
         
         UI.setColor(Color.black);
@@ -83,7 +96,7 @@ public class GUI
         // Print name of card underneath image
         UI.drawString(selectedCard.getName(), XPOS, yPos); 
         
-        // convert price from int to string for printing purposes
+        // convert price from int to string to print
         // CODE SOURCED FROM 
         // https://www.javatpoint.com/java-double-to-string
         String cardPrice = String.valueOf(selectedCard.getValue());
@@ -140,9 +153,24 @@ public class GUI
         }
     }
     
-    // Display All
-    // Wipe graphics pane
-    // Parameter of hashmap
-    // Loop through hashmap and print
+    /**
+     * Display all cards using a for loop
+     */
+    public void displayAll() {
+        // find how many cards are in hashmap
+        int mapLength = crds.returnMapLen();
+        
+        // Loop through hashmap to display each card's details
+        for (int cardId = 1; cardId <= mapLength; cardId++) {
+            // locate current card
+            currCard = crds.getCard(cardId);
+            // Print name
+            UI.println("Name of card: " + currCard.getName());
+            // Print value
+            UI.println("Value of card: $" + currCard.getValue());
+            
+        }
+    }
+
     
 }

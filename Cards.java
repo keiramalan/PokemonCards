@@ -1,4 +1,3 @@
-import ecs100.*;
 import java.util.*;
 import java.io.*;
 import java.awt.Color;
@@ -39,6 +38,9 @@ public class Cards
     
     /**
      * Add a card to hashmap with its name, image, and value
+     * @param name Card's name
+     * @param cardValue Card's monetary value 
+     * @param imgFileName Location of card image
      */
     public void addCard(String name, double cardValue, String imgFileName) {
         // add new card to hashmap
@@ -54,19 +56,32 @@ public class Cards
     }
     
     /**
+     * Return card with given key
+     * Used to display cards in GUI class
+     * @param cardId the ID of the card object to be returned
+     * @return Card the selected card
+     */
+    public Card getCard(int cardId) {
+        return cardsMap.get(cardId);
+    }
+    
+    /**
      * Finds a card based on name
      * sets the current card instance if found and returns true
      * @return boolean false if not found
+     * @param name Name being searched for
      */
     public boolean findCard(String name) {
-       // Search hashmap for card
+        // Search hashmap by name for user's input
        
-       for (int cardId : cardsMap.keySet()) {
-           if (cardsMap.get(cardId).getName().equalsIgnoreCase(name)) {
-               currCard = cardsMap.get(cardId);
-               return true;
-           }
+        for (int cardId : cardsMap.keySet()) {
+            if (cardsMap.get(cardId).getName().equalsIgnoreCase(name)) {
+                currCard = cardsMap.get(cardId);
+                return true;
+            }
         }
+        
+        // returns false if no matching results found
         return false;
     }
     
@@ -74,17 +89,16 @@ public class Cards
      * Getter method for the current card
      * @return Card current card
      */
-    public Card getCard(){
+    public Card getCard() {
         return currCard;
     }
     
-    // Display All
-    // Return hashmap
-    // https://stackoverflow.com/questions/37971533/
-    //is-it-possible-to-return-a-hashmap-object-in-java/37971561
-    public Map<Integer, Card> returnMap() {
-        
-        return cardsMap;
+    /**
+     * Returns the length of cardsMap
+     * @return int the length of cardsMap hashmap
+     */
+    public int returnMapLen() {
+        int mapLength = cardsMap.size();
+        return mapLength;
     }
-    // How tf?
 }
