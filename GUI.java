@@ -50,14 +50,14 @@ public class GUI
         // mouse listener checks if user has clicked on image
         UI.setMouseListener(this::mouseListener);
     }
-
+    
     public void addCard() {
         // amount to increment card ID for hashmap placement
         final int INCREMENT = 1;
         
         // Get card's name and number from user
-        String name;
-        int cardPrice;
+        String name = "Name";
+        int cardPrice = -1;
         
         // Name must be larger than 0 characters but smaller than 20
         do {
@@ -67,7 +67,7 @@ public class GUI
         // price cannot be higher than $300,000 or lower than 1
         do {
             cardPrice = UI.askInt("Card price: ");
-        } while (cardPrice < MINPRICE || cardPrice > MAXPRICE);
+        } while (cardPrice < MINPRICE || cardPrice > MAXPRICE || cardPrice != -1);
         
         // add an image of the card
         String imgFileName = UIFileChooser.open("Choose Image File: ");
@@ -84,6 +84,9 @@ public class GUI
      * @param Card selected card to display
      */
     public void displayCard(Card selectedCard) {
+        // clear graphics pane
+        UI.clearGraphics();
+        
         // co-ordinates of text
         final int XPOS = 100;
         int yPos = 400;
@@ -122,7 +125,11 @@ public class GUI
      * Displays card if found
      */
     public void findCard() {
-        String cardName = UI.askString("Name of card: ");
+        String cardName;
+        do {
+            cardName = UI.askString("Name of card: ");
+        } while (cardName.length() < MINNAME || 
+        cardName.length() > MAXNAME); 
         
         if (crds.findCard(cardName)) {
             UI.println("Found this card!");
